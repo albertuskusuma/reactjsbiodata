@@ -4,13 +4,12 @@ const connectDB = require('../config/database');
 const router = express.Router();
 var jwt = require('jsonwebtoken');
 
-const verifyToken = require('../JWT');
 // const req = require('express/lib/request');
 
 const config = process.env;
 
 // jenis kelamin
-router.get('/getJenisKelamin',verifyToken,(req,res)=>{
+router.get('/getJenisKelamin',verifyJWT,(req,res)=>{
     const querySQL = `select * from xm_jenis_kelamin`;
 
     connectDB.query(querySQL,(err,rows,field)=>{
@@ -24,7 +23,7 @@ router.get('/getJenisKelamin',verifyToken,(req,res)=>{
 });
 
 // fakultas
-router.get('/fakultas',verifyToken,(req,res)=>{
+router.get('/fakultas',verifyJWT,(req,res)=>{
     const querySQL = `select * from xm_fakultas`;
 
     connectDB.query(querySQL,(err,rows,field)=>{
@@ -38,7 +37,7 @@ router.get('/fakultas',verifyToken,(req,res)=>{
 });
 
 // prodi
-router.get('/getProdi',verifyToken,(req,res)=>{
+router.get('/getProdi',verifyJWT,(req,res)=>{
     let sql = `select * from xm_prodi`;
 
     connectDB.query(sql,(err,rows,field)=>{
@@ -51,7 +50,7 @@ router.get('/getProdi',verifyToken,(req,res)=>{
     })
 })
 
-router.post('/prodi',verifyToken,(req,res)=>{
+router.post('/prodi',verifyJWT,(req,res)=>{
 
     // param
     let id_fakultasParam = req.body.id_fakultas;
@@ -69,7 +68,7 @@ router.post('/prodi',verifyToken,(req,res)=>{
 });
 
 // list biodata
-router.get('/', verifyToken,(req, res)=>{
+router.get('/', verifyJWT,(req, res)=>{
 
     // let token = req.headers["x-access-token"];
 
@@ -281,7 +280,7 @@ router.post('/', verifyJWT,(req, res)=>{
 // list biodata using POST
 
 // add biodata
-router.post('/addBiodata',verifyToken,(req,res)=>{
+router.post('/addBiodata',verifyJWT,(req,res)=>{
 
     // param
     let namaParam =  req.body.nama;
@@ -314,7 +313,7 @@ router.post('/addBiodata',verifyToken,(req,res)=>{
 // add biodata
 
 // get data by id
-router.post('/getBiodataById',verifyToken,(req, res)=>{
+router.post('/getBiodataById',verifyJWT,(req, res)=>{
     
     // params
     let id_mhs = req.body.id_mhs;
@@ -332,7 +331,7 @@ router.post('/getBiodataById',verifyToken,(req, res)=>{
 // get data by id
 
 // edit biodata
-router.post('/editBiodata',verifyToken,(req, res)=>{
+router.post('/editBiodata',verifyJWT,(req, res)=>{
 
     // params
     let id = req.body.id;
@@ -370,7 +369,7 @@ router.post('/editBiodata',verifyToken,(req, res)=>{
 // edit biodata
 
 // delete biodata
-router.post('/deleteBiodata',verifyToken,(req, res)=>{
+router.post('/deleteBiodata',verifyJWT,(req, res)=>{
 
     // params
     let id = req.body.id;
